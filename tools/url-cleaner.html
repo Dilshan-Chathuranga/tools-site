@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>URL Cleaner – Remove Tracking Parameters</title>
+  <meta name="description" content="Remove tracking parameters like utm_*, fbclid, and gclid from URLs instantly.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; background:#f9f9f9; }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    button { cursor: pointer; }
+    .box { background: white; padding: 20px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+
+<h1>🔗 URL Cleaner</h1>
+<p>Paste a URL and remove tracking parameters like utm_*, fbclid, and gclid.</p>
+
+<div class="box">
+  <input id="inputUrl" placeholder="Paste URL here..." />
+  <button onclick="cleanUrl()">Clean URL</button>
+  <textarea id="outputUrl" placeholder="Clean URL will appear here..." readonly></textarea>
+</div>
+
+<p style="margin-top:20px;">
+  👉 <b>Tip:</b> Use our Chrome extension for one-click cleaning.
+</p>
+
+<script>
+  const trackingParams = [
+    "utm_source","utm_medium","utm_campaign","utm_term","utm_content",
+    "fbclid","gclid","mc_cid","mc_eid"
+  ];
+
+  function cleanUrl() {
+    try {
+      const input = document.getElementById("inputUrl").value.trim();
+      const url = new URL(input);
+
+      trackingParams.forEach(p => url.searchParams.delete(p));
+
+      document.getElementById("outputUrl").value = url.toString();
+    } catch {
+      alert("Please enter a valid URL.");
+    }
+  }
+</script>
+
+</body>
+</html>
